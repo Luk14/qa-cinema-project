@@ -1,0 +1,73 @@
+@startuml
+
+skinparam linetype ortho
+
+entity "films" as films {
+	* **film_id : bigint(20) <<generated>>**
+	--
+	film_name : text
+    age_rating: text
+    description: text
+    opening: text
+    closing: text
+    picture: text
+    cast: text
+    director: text
+    runtime: int(11)
+    trailer: text
+    rating: text
+}
+
+entity "users" as users {
+	* **user_id : bigint(20) <<generated>>**
+	--
+	* first_name :text
+    * last_name : text
+	* dob : text
+    * username: text
+    * email: text
+    * password: blob
+}
+
+entity "screening" as screenings {
+    * **screening_id: bigint(20) <<generated>>**
+    * **film_id: bigint <<FK>>**
+    --
+    * screen : int(11)
+    * date : text
+    * time : text
+}
+
+entity "bookings" as bookings {
+    * **booking_id: bigint(20) <<generated>>
+    * **user_id: bigint(20) <<FK>>**
+    * **screening_id: bigint(20) <<FK>>**
+    * **order_id: bigint(20)
+    status: text
+    adult_tickets: int(11)
+    children_tickets: int(11)
+    concession_tickets: int(11)
+    total: double
+}
+
+entity "forum" as forum {
+    * **comment_id: bigint(20) <<generated>>**
+    * **film_id: bigint(20) <<FK>>**
+    --
+    * rating: int(11)
+    * username: text
+    comment_body: text
+}
+
+entity "comments" as comments {
+    * **comment_id: bigint(20) <<generated>>**
+    * username: text
+    * comment_body: text
+}
+
+films ||--o{ screenings
+bookings }o--o| screenings
+films ||--|| forum
+forum ||--o{ comments
+users ||--o{ bookings
+@enduml

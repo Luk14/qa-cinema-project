@@ -1,0 +1,41 @@
+@(films: Seq[Film])(implicit session: Session)
+
+
+
+    @main("All Our Films") {
+    <head>
+        <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("stylesheets/listingsgallery.css")"><title>Currently Showing</title>
+    </head>
+
+
+    <br/>
+        <br/>
+        <div class = "listingscontainer">
+            <div class = "container text-center" >
+                <div class = "row">
+                @for(film <- films) {
+                    @if((film.film_id != 1L) && (film.film_id % 2 != 0)) {
+                        <div class = "row"></div>
+                        <br/>
+                    }
+                    <div class = "col-xl item text-center" >
+                        <div class = "card mb-4 border-0" id="filmcard">
+                            <div class="content">
+                                <a href = "/film/@film.film_id">
+                                    <img class = "card-img-top image" src = "@routes.Assets.versioned(film.picture)" alt="@film.film_name poster">
+                                    <div class="overlay">
+                                        <h3>Click for more details</h3>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                </div>
+            </div>
+        </div>
+        <br/>
+        <br/>
+
+    }

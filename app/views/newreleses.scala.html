@@ -1,0 +1,29 @@
+@(films: Seq[Film])(implicit session: Session)
+
+@main("New Releases") {
+    <head>
+        <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("stylesheets/newreleases.css")"><title>New Releases</title>
+    </head>
+    <div class="container">
+        <div class="films">
+            <div class="row text-center">
+            @for(film <- films) {
+
+                <div class="col-lg item text-center">
+                    <div class="card mb-4 border-0" id="filmcard">
+                        <a style="text-decoration: none;" href="@routes.ListingsGalleryController.showFilm(film.film_id)">
+                            <img src="@routes.Assets.versioned(film.picture)" class="card-img-top" alt="film-card">
+                            <div class="overlay">
+                                <h3><b>Opening Date: </b>
+                                    @film.opening_date</h3>
+
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <br/>
+            }
+            </div>
+        </div>
+    </div>
+}
